@@ -10,6 +10,7 @@ import {
   ShoppingBag, 
   Search, 
   User as UserIcon, 
+  ClipboardList,
   LogOut, 
   LayoutDashboard,
   ChevronDown,
@@ -23,7 +24,14 @@ import SearchOverlay from "./SearchOverlay";
 import Image from "next/image";
 import { cn } from "@/utils/cn";
 
-const navLinks = [
+interface NavLink {
+  name: string;
+  href: string;
+  badge?: string;
+  dropdown?: { name: string; href: string }[];
+}
+
+const navLinks: NavLink[] = [
   { name: "New Arrivals", href: "/collection?sort=newest" },
   { 
     name: "Men", 
@@ -207,6 +215,14 @@ export default function Navbar() {
               )}
             </button>
 
+            <Link 
+              href="/orders"
+              className="p-1 hover:text-[#c5a059] transition-colors block"
+              aria-label="Orders"
+            >
+              <ClipboardList size={18} strokeWidth={1.5} />
+            </Link>
+
             {/* User Auth Section */}
             <div className="relative" ref={userMenuRef}>
               {status === "authenticated" ? (
@@ -325,6 +341,13 @@ export default function Navbar() {
                   )}
                 </div>
               ))}
+              <Link
+                href="/orders"
+                className="text-3xl font-bold uppercase tracking-tighter"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Orders
+              </Link>
             </div>
           </motion.div>
         )}

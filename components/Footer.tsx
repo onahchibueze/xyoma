@@ -49,7 +49,7 @@ export default function Footer() {
               Xyoma
             </Link>
             <p className="text-sm text-zinc-500 uppercase tracking-widest max-w-sm leading-relaxed font-light">
-              Engineering the intersection of Nigerian soul and futuristic technical streetwear. Defined by purpose, crafted by intent.
+              The intersection of Nigerian soul and technical streetwear. Defined by purpose, crafted by intent.
             </p>
           </div>
 
@@ -74,7 +74,7 @@ export default function Footer() {
           {/* Legal / Contact */}
           <div className="flex flex-col gap-6">
             <h4 className="text-[10px] uppercase tracking-[0.4em] text-white font-semibold">
-              Laboratory
+              Studio
             </h4>
             <div className="flex flex-col gap-3 text-xs text-zinc-500 uppercase tracking-widest leading-loose">
               <p>Lagos, Nigeria</p>

@@ -60,7 +60,7 @@ const OrderSchema = new Schema<IOrder>(
       phoneNo: { type: String, required: true },
     },
     paymentInfo: {
-      id: { type: String },
+      id: { type: String, unique: true, sparse: true },
       status: { type: String }
     },
     orderStatus: { 

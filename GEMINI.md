@@ -7,13 +7,13 @@ XYOMA
 
 # Project Overview
 
-XYOMA is a futuristic luxury fashion e-commerce platform built with Next.js 14+ App Router.
+XYOMA is a premium luxury fashion e-commerce platform built with Next.js 14+ App Router.
 
 The brand aesthetic is:
 - Premium
 - Minimal
 - Cinematic
-- Futuristic
+- High-end
 - Fashion editorial inspired
 
 Design inspiration:
@@ -142,7 +142,7 @@ Login and signup pages should have:
 - Full-height black panel
 - Large white "XYOMA" branding
 - Inspired by homepage hero section
-- Minimal futuristic fashion design
+- Minimal premium fashion design
 
 ## Right Side
 - Existing auth forms

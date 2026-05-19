@@ -34,12 +34,12 @@ function ResetPasswordContent() {
     }
 
     if (password !== confirmPassword) {
-      setError('Keys do not match. Please verify your entries.');
+      setError('Passwords do not match. Please verify your entries.');
       return;
     }
 
     if (password.length < 6) {
-      setError('Key must be at least 6 characters long.');
+      setError('Password must be at least 6 characters long.');
       return;
     }
 
@@ -64,7 +64,7 @@ function ResetPasswordContent() {
       }
     } catch (err) {
       console.error(err);
-      setError('An unexpected error occurred during transmission');
+      setError('An unexpected error occurred during processing');
     } finally {
       setLoading(false);
     }
@@ -84,7 +84,7 @@ function ResetPasswordContent() {
       </button>
 
       {/* LEFT SIDE: Premium Sidebar */}
-      <AuthSidebar subtitle="Re-establish your identity in the luxury ecosystem." />
+      <AuthSidebar subtitle="Access your account." />
 
       {/* RIGHT SIDE: Authentication Form */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 lg:px-20 bg-black relative">
@@ -106,10 +106,10 @@ function ResetPasswordContent() {
             <>
               <div className="mb-10 text-center lg:text-left">
                 <h2 className="text-3xl font-bold tracking-tight text-white uppercase mb-2">
-                  Update Key
+                  Update Password
                 </h2>
                 <p className="text-zinc-500 text-[11px] uppercase tracking-[0.2em]">
-                  Define your new security credentials
+                  Set your new password
                 </p>
               </div>
 
@@ -144,14 +144,14 @@ function ResetPasswordContent() {
                   
                   <div className="space-y-5">
                     <PasswordField
-                      label="New Key (Password)"
+                      label="New Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter new password"
                     />
 
                     <PasswordField
-                      label="Confirm Key"
+                      label="Confirm Password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="Confirm new password"
@@ -164,7 +164,7 @@ function ResetPasswordContent() {
                       disabled={loading || !token}
                       className="group relative flex w-full justify-center bg-white py-4 text-[10px] font-bold uppercase tracking-[0.4em] text-black hover:bg-zinc-200 transition-all disabled:opacity-50 rounded-none shadow-lg shadow-white/5"
                     >
-                      {loading ? 'Re-writing...' : 'Update Identity Key'}
+                      {loading ? 'Updating...' : 'Update Password'}
                     </button>
                   </div>
                 </form>
@@ -182,17 +182,17 @@ function ResetPasswordContent() {
                 </div>
               </div>
               <h2 className="text-2xl font-bold tracking-tight text-white uppercase mb-4">
-                Key Updated
+                Password Updated
               </h2>
               <p className="text-zinc-500 text-[11px] uppercase tracking-[0.2em] leading-relaxed mb-10">
-                Your security credentials have been successfully updated. 
-                The terminal is now ready for your next session.
+                Your password has been successfully updated. 
+                You can now sign in with your new credentials.
               </p>
               <Link 
                 href="/login"
                 className="inline-block bg-white py-4 px-10 text-[10px] font-bold uppercase tracking-[0.4em] text-black hover:bg-zinc-200 transition-all rounded-none shadow-lg shadow-white/5"
               >
-                Enter Terminal (Login)
+                Login
               </Link>
             </motion.div>
           )}
@@ -206,7 +206,7 @@ export default function ResetPasswordPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white text-[10px] uppercase tracking-[0.5em] animate-pulse">Initializing Security Terminal...</div>
+        <div className="text-white text-[10px] uppercase tracking-[0.5em] animate-pulse">Loading...</div>
       </div>
     }>
       <ResetPasswordContent />

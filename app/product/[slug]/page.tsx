@@ -9,6 +9,7 @@ import { useCartStore } from '@/store/useCartStore';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SectionWrapper from '@/components/SectionWrapper';
+import BackButton from '@/components/BackButton';
 import { cn } from '@/utils/cn';
 import { formatPrice } from '@/utils';
 
@@ -48,7 +49,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
   if (!product) {
     return (
       <div className="bg-black min-h-screen text-white flex flex-col items-center justify-center gap-6">
-        <h1 className="text-4xl font-bold uppercase tracking-widest">Identity Not Found</h1>
+        <h1 className="text-4xl font-bold uppercase tracking-widest">Product Not Found</h1>
         <button onClick={() => router.push('/collection')} className="underline uppercase tracking-[0.3em] text-xs">Return to Collection</button>
       </div>
     );
@@ -76,6 +77,9 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
       <Navbar />
 
       <SectionWrapper id="product-details" className="pt-32 pb-24">
+        <div className="mb-12">
+          <BackButton />
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24">
           {/* Left: Image Gallery */}
           <div className="space-y-6">
@@ -207,7 +211,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
             <div className="grid grid-cols-2 gap-y-6 text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-medium">
               <div>
                 <p className="text-zinc-700 mb-1">Authenticity</p>
-                <p className="text-zinc-300">Certified XYOMA Lab</p>
+                <p className="text-zinc-300">Official XYOMA Product</p>
               </div>
               <div>
                 <p className="text-zinc-700 mb-1">Shipping</p>
@@ -215,7 +219,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
               </div>
               <div>
                 <p className="text-zinc-700 mb-1">Material</p>
-                <p className="text-zinc-300">Technical Heritage</p>
+                <p className="text-zinc-300">Premium Material</p>
               </div>
               <div>
                 <p className="text-zinc-700 mb-1">Serial</p>

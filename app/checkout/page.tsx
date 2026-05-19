@@ -8,6 +8,7 @@ import { useCartStore } from '@/store/useCartStore';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SectionWrapper from '@/components/SectionWrapper';
+import BackButton from '@/components/BackButton';
 import Image from 'next/image';
 import { formatPrice } from '@/utils';
 
@@ -52,22 +53,26 @@ export default function CheckoutPage() {
         totalPrice: totalPrice + (totalPrice > 500 ? 0 : 50) + (totalPrice * 0.05),
       };
 
-      const res = await fetch('/api/orders', {
+      // Generate Idempotency Key
+      const idempotencyKey = window.crypto.randomUUID();
+
+      const res = await fetch('/api/paystack/initialize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderData),
+        body: JSON.stringify({
+          orderData,
+          idempotencyKey,
+          email: session?.user?.email
+        }),
       });
 
-      if (res.ok) {
-        clearCart();
-        // Clear from DB too if logged in
-        if (session) {
-          await fetch('/api/cart', { method: 'DELETE' });
-        }
-        router.push('/orders?success=true');
+      const data = await res.json();
+
+      if (res.ok && data.authorization_url) {
+        // Redirect to Paystack
+        window.location.href = data.authorization_url;
       } else {
-        const error = await res.json();
-        alert(error.error || 'Failed to place order');
+        alert(data.error || 'Failed to initialize payment');
       }
     } catch (error) {
       console.error('Checkout error:', error);
@@ -89,6 +94,8 @@ export default function CheckoutPage() {
 
       <SectionWrapper id="checkout" className="pt-32 pb-24">
         <div className="flex flex-col gap-12">
+          <BackButton />
+          
           <div className="flex flex-col gap-4">
             <span className="text-[10px] uppercase tracking-[0.6em] text-zinc-500 font-medium">
               Secure Checkout / Step 1 of 1
@@ -105,7 +112,7 @@ export default function CheckoutPage() {
                 <div className="space-y-6">
                   <h3 className="text-xs font-bold uppercase tracking-[0.3em] flex items-center gap-3">
                     <Truck size={16} className="text-zinc-500" />
-                    Logistics Protocol
+                    Shipping Details
                   </h3>
                   
                   <div className="grid grid-cols-1 gap-6">
@@ -182,11 +189,11 @@ export default function CheckoutPage() {
                   <div className="bg-zinc-900/30 border border-white/5 rounded-2xl p-6 space-y-4">
                     <h3 className="text-xs font-bold uppercase tracking-[0.3em] flex items-center gap-3">
                       <ShieldCheck size={16} className="text-[#c5a059]" />
-                      Payment Protocol
+                      Payment Details
                     </h3>
                     <p className="text-[10px] uppercase tracking-widest text-zinc-500 leading-relaxed">
-                      For this foundation phase, we only support <span className="text-white">Payment on Delivery</span>. 
-                      Online payment modules are currently in technical incubation.
+                      Secure processing via <span className="text-white">Paystack</span>. 
+                      Your financial data is encrypted and handled with absolute integrity.
                     </p>
                   </div>
                 </div>
@@ -198,7 +205,7 @@ export default function CheckoutPage() {
               <div className="sticky top-32 space-y-8 bg-zinc-950 border border-white/10 rounded-3xl p-8 shadow-2xl">
                 <h3 className="text-xs font-bold uppercase tracking-[0.3em] flex items-center gap-3 border-b border-white/5 pb-6">
                   <Package size={16} className="text-zinc-500" />
-                  Bag Authentication
+                  Order Summary
                 </h3>
 
                 <div className="space-y-6 max-h-[300px] overflow-y-auto custom-scrollbar pr-2">
@@ -227,19 +234,19 @@ export default function CheckoutPage() {
 
                 <div className="space-y-4 border-t border-white/5 pt-6">
                   <div className="flex justify-between text-[10px] uppercase tracking-widest text-zinc-500">
-                    <span>Artifacts Value</span>
+                    <span>Subtotal</span>
                     <span>{formatPrice(totalPrice)}</span>
                   </div>
                   <div className="flex justify-between text-[10px] uppercase tracking-widest text-zinc-500">
-                    <span>Logistics Fee</span>
+                    <span>Shipping Fee</span>
                     <span>{formatPrice(totalPrice > 500 ? 0 : 50)}</span>
                   </div>
                   <div className="flex justify-between text-[10px] uppercase tracking-widest text-zinc-500">
-                    <span>Heritage Tax (5%)</span>
+                    <span>Tax (5%)</span>
                     <span>{formatPrice(totalPrice * 0.05)}</span>
                   </div>
                   <div className="pt-4 flex justify-between border-t border-white/5">
-                    <span className="text-sm font-bold uppercase tracking-[0.3em]">Total Protocol</span>
+                    <span className="text-sm font-bold uppercase tracking-[0.3em]">Total Amount</span>
                     <span className="text-lg font-mono font-bold text-white">
                       {formatPrice(totalPrice + (totalPrice > 500 ? 0 : 50) + (totalPrice * 0.05))}
                     </span>
@@ -256,7 +263,7 @@ export default function CheckoutPage() {
                     <Loader2 className="animate-spin" size={18} />
                   ) : (
                     <>
-                      Confirm Identity Order
+                      Proceed to Secure Payment
                       <ArrowRight size={16} />
                     </>
                   )}
