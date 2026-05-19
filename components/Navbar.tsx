@@ -24,7 +24,14 @@ import SearchOverlay from "./SearchOverlay";
 import Image from "next/image";
 import { cn } from "@/utils/cn";
 
-const navLinks = [
+interface NavLink {
+  name: string;
+  href: string;
+  badge?: string;
+  dropdown?: { name: string; href: string }[];
+}
+
+const navLinks: NavLink[] = [
   { name: "New Arrivals", href: "/collection?sort=newest" },
   { 
     name: "Men", 
