@@ -28,7 +28,7 @@ export default function AuthSidebar({ subtitle = "The Essence of Luxury" }: Auth
         className="relative z-10"
       >
         <span className="text-[10px] uppercase tracking-[0.6em] text-zinc-500 font-medium">
-          XYOMA / Auth Lab
+          XYOMA / Authentication
         </span>
       </motion.div>
 
@@ -81,7 +81,7 @@ export default function AuthSidebar({ subtitle = "The Essence of Luxury" }: Auth
 
       {/* Minimal Scroll/Indicator */}
       <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4 opacity-20 rotate-180">
-        <span className="text-[8px] uppercase tracking-[0.5em] [writing-mode:vertical-rl]">Identity</span>
+        <span className="text-[8px] uppercase tracking-[0.5em] [writing-mode:vertical-rl]">Account</span>
         <div className="w-px h-12 bg-white" />
       </div>
     </div>

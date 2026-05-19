@@ -103,7 +103,7 @@ export default function CartDrawer() {
             <div className="p-6 border-b border-white/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <ShoppingBag size={20} className="text-zinc-400" />
-                <h2 className="text-sm font-bold uppercase tracking-[0.3em]">Your Identity</h2>
+                <h2 className="text-sm font-bold uppercase tracking-[0.3em]">Your Account</h2>
                 <span className="bg-white/10 text-[10px] px-2 py-0.5 rounded-full text-zinc-400 font-mono">
                   {totalQuantity}
                 </span>
@@ -211,7 +211,7 @@ export default function CartDrawer() {
                     <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <p className="text-[8px] text-center text-zinc-600 uppercase tracking-widest">
-                    Secured by XYOMA Heritage Protocol
+                    Secured Checkout
                   </p>
                 </div>
               </div>

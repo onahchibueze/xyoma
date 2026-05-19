@@ -64,10 +64,10 @@ export default function CollectionPage() {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
               <span className="text-[10px] uppercase tracking-[0.6em] text-zinc-500 font-medium">
-                XYOMA / Catalog Exploration
+                XYOMA / Collection
               </span>
               <h1 className="text-5xl md:text-8xl font-bold tracking-tighter uppercase leading-[0.85]">
-                The <span className="text-zinc-600 italic">Inventory</span>
+                The <span className="text-zinc-600 italic">Collection</span>
               </h1>
             </div>
 
@@ -77,7 +77,7 @@ export default function CollectionPage() {
                 <Search className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-600 group-focus-within:text-white transition-colors" strokeWidth={1.5} />
                 <input
                   type="text"
-                  placeholder="SEARCH FOR IDENTITY..."
+                  placeholder="SEARCH PRODUCTS..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full bg-transparent border-none py-4 pl-10 pr-6 text-sm uppercase tracking-widest focus:outline-none focus:ring-0 transition-all placeholder:text-zinc-800"
@@ -178,7 +178,7 @@ export default function CollectionPage() {
                         )}
                       >
                         <Sparkles size={14} />
-                        Featured Identities
+                        Featured Products
                       </button>
                     </div>
                   </div>
@@ -189,7 +189,7 @@ export default function CollectionPage() {
 
           {/* Results Info */}
           <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.5em] text-zinc-600 font-mono">
-            <span>{products.length} Artifacts Located</span>
+            <span>{products.length} Products Found</span>
             {searchQuery && (
               <span className="text-zinc-400">Query: "{searchQuery}"</span>
             )}
@@ -198,7 +198,7 @@ export default function CollectionPage() {
           {loading ? (
             <div className="flex h-96 flex-col items-center justify-center gap-6">
               <Loader2 className="w-10 h-10 animate-spin text-zinc-800" />
-              <span className="text-[9px] uppercase tracking-[0.6em] text-zinc-700 animate-pulse">Syncing with Lab...</span>
+              <span className="text-[9px] uppercase tracking-[0.6em] text-zinc-700 animate-pulse">Loading Collection...</span>
             </div>
           ) : products.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-40 text-center gap-8">
@@ -206,8 +206,8 @@ export default function CollectionPage() {
                 <Search size={32} className="text-zinc-900" />
               </div>
               <div className="space-y-4">
-                <h3 className="text-2xl uppercase tracking-tighter font-bold">Identity Null</h3>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-600 max-w-xs mx-auto leading-relaxed">No laboratory records match your current search parameters.</p>
+                <h3 className="text-2xl uppercase tracking-tighter font-bold">No Products Found</h3>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-600 max-w-xs mx-auto leading-relaxed">No products match your current search parameters.</p>
               </div>
               <button 
                 onClick={() => {
@@ -217,7 +217,7 @@ export default function CollectionPage() {
                 }}
                 className="text-[9px] uppercase tracking-[0.4em] text-white font-bold border-b border-white/20 pb-1 hover:border-white transition-all"
               >
-                Reset Parameters
+                Reset Filters
               </button>
             </div>
           ) : (
@@ -248,7 +248,7 @@ export default function CollectionPage() {
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                       <div className="absolute bottom-8 left-8 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                        <span className="text-[9px] uppercase tracking-[0.4em] font-bold border-b border-white pb-2">View Technical Detail</span>
+                        <span className="text-[9px] uppercase tracking-[0.4em] font-bold border-b border-white pb-2">View Details</span>
                       </div>
                     </div>
 

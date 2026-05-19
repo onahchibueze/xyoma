@@ -92,7 +92,7 @@ export default function Collection() {
           </div>
           <div className="flex flex-col items-start md:items-end gap-4">
             <p className="text-xs text-zinc-500 uppercase tracking-widest max-w-[280px] md:text-right leading-relaxed font-light">
-              Futuristic Heritage: Engineering the intersection of Nigerian soul and technical streetwear.
+              Premium Heritage: The intersection of Nigerian soul and technical streetwear.
             </p>
             <div className="h-px w-20 bg-zinc-700 hidden md:block" />
           </div>
@@ -102,7 +102,7 @@ export default function Collection() {
         {loading ? (
           <div className="h-96 flex flex-col items-center justify-center gap-4">
             <Loader2 className="animate-spin text-zinc-500" size={32} />
-            <span className="text-[10px] uppercase tracking-[0.4em] text-zinc-500">Loading Artifacts...</span>
+            <span className="text-[10px] uppercase tracking-[0.4em] text-zinc-500">Loading Collection...</span>
           </div>
         ) : (
           /* Fashion Collection Grid */
@@ -173,7 +173,7 @@ export default function Collection() {
         {/* Bottom Editorial Quote */}
         <div className="mt-12 md:mt-24 border-t border-white/5 pt-12 text-center">
           <p className="text-[10px] md:text-xs uppercase tracking-[0.5em] text-zinc-600 italic">
-            &quot;We don&apos;t make clothes. We architect identities.&quot; — XYOMA Laboratory
+            &quot;We don&apos;t just make clothes. We define style.&quot; — XYOMA Laboratory
           </p>
         </div>
       </div>

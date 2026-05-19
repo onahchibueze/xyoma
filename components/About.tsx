@@ -95,10 +95,9 @@ export default function About() {
               </h3>
               <p className="text-sm text-zinc-500 leading-relaxed font-light">
                 From limited seasonal drops to avant-garde streetwear essentials, 
-                our collections represent a continuous evolution of form and 
-                identity in the digital age.
-              </p>
-            </div>
+                our collections represent a continuous evolution of form and
+                style in the digital age.
+                </p>            </div>
           </div>
 
           <div className="pt-12">

@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   ShoppingBag, 
   User as UserIcon, 
+  ClipboardList,
   Menu, 
   X, 
   ChevronDown,
@@ -258,6 +259,14 @@ export default function CollectionNavbar() {
               )}
             </button>
 
+            <Link 
+              href="/orders"
+              className="p-1 text-zinc-400 hover:text-white transition-colors block"
+              aria-label="Orders"
+            >
+              <ClipboardList size={20} strokeWidth={1.5} />
+            </Link>
+
             {/* Mobile Toggle */}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -329,6 +338,19 @@ export default function CollectionNavbar() {
                     )}
                   </motion.div>
                 ))}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 + navLinks.length * 0.1 }}
+                >
+                  <Link
+                    href="/orders"
+                    className="text-3xl font-bold uppercase tracking-tighter hover:text-zinc-400 transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Orders
+                  </Link>
+                </motion.div>
                 </div>
               </div>
 

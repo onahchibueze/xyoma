@@ -112,7 +112,7 @@ export default function LoginPage() {
               Sign In
             </h2>
             <p className="text-zinc-500 text-[11px] uppercase tracking-[0.2em]">
-              Welcome back to the inventory
+              Welcome back
             </p>
           </div>
 
@@ -150,7 +150,7 @@ export default function LoginPage() {
             <div className="space-y-5">
               <div className="group relative">
                 <label className="block text-[9px] uppercase tracking-[0.3em] text-zinc-500 mb-2 group-focus-within:text-white transition-colors">
-                  Identity (Email)
+                  Email Address
                 </label>
                 <input
                   type="email"
@@ -164,7 +164,7 @@ export default function LoginPage() {
 
               <div className="space-y-3">
                 <PasswordField
-                  label="Key (Password)"
+                  label="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
@@ -186,7 +186,7 @@ export default function LoginPage() {
                 disabled={loading}
                 className="group relative flex w-full justify-center bg-white py-4 text-[10px] font-bold uppercase tracking-[0.4em] text-black hover:bg-zinc-200 transition-all disabled:opacity-50 rounded-none shadow-lg shadow-white/5"
               >
-                {loading ? 'Processing...' : 'Verify Identity'}
+                {loading ? 'Processing...' : 'Sign In'}
               </button>
             </div>
           </form>
@@ -197,7 +197,7 @@ export default function LoginPage() {
                 <div className="w-full border-t border-white/5" />
               </div>
               <div className="relative flex justify-center text-[8px] uppercase tracking-[0.5em]">
-                <span className="bg-black px-4 text-zinc-600 font-medium">Alternative Gate</span>
+                <span className="bg-black px-4 text-zinc-600 font-medium">Or continue with</span>
               </div>
             </div>
 
@@ -237,7 +237,7 @@ export default function LoginPage() {
           </div>
 
           <p className="mt-12 text-center text-[9px] uppercase tracking-[0.3em] text-zinc-600">
-            No record found?{' '}
+            Don't have an account?{' '}
             <Link href="/signup" className="font-bold text-white hover:underline transition-all">
               Create Account
             </Link>

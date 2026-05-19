@@ -107,7 +107,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   <div className="space-y-6">
                     <h3 className="flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-zinc-500 font-bold">
                       <TrendingUp size={12} />
-                      Trending Artifacts
+                      Trending Products
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {suggestedSearches.map((s) => (
@@ -124,14 +124,14 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
                   <div className="pt-10 border-t border-white/5 space-y-4">
                     <p className="text-[9px] uppercase tracking-[0.3em] text-zinc-600 leading-relaxed max-w-[240px]">
-                      Our technical heritage is engineered for longevity and identity refinement.
+                      Our technical heritage is engineered for longevity and style refinement.
                     </p>
                     <Link 
                       href="/collection" 
                       onClick={onClose}
                       className="inline-flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-[#c5a059] hover:text-white transition-colors"
                     >
-                      Browse Inventory <ArrowUpRight size={12} />
+                      Browse Collection <ArrowUpRight size={12} />
                     </Link>
                   </div>
                 </div>
@@ -170,7 +170,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   ) : !loading && (
                     <div className="py-20 flex flex-col items-center justify-center gap-4 text-zinc-600">
                       <X size={40} strokeWidth={1} />
-                      <p className="text-[10px] uppercase tracking-[0.4em]">Zero Identities Located</p>
+                      <p className="text-[10px] uppercase tracking-[0.4em]">No Results Found</p>
                     </div>
                   )}
                 </div>

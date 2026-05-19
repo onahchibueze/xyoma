@@ -38,12 +38,12 @@ function VerifyEmailContent() {
           setMessage(data.error || 'Verification failed. The token may be invalid or expired.');
         } else {
           setStatus('success');
-          setMessage(data.message || 'Identity verified successfully.');
+          setMessage(data.message || 'Account verified successfully.');
         }
       } catch (err) {
         console.error(err);
         setStatus('error');
-        setMessage('An unexpected error occurred during identity verification.');
+        setMessage('An unexpected error occurred during account verification.');
       }
     };
 
@@ -53,7 +53,7 @@ function VerifyEmailContent() {
   return (
     <div className="flex min-h-screen bg-black overflow-hidden relative">
       {/* LEFT SIDE: Premium Sidebar */}
-      <AuthSidebar subtitle="Authenticating your place in the future of luxury." />
+      <AuthSidebar subtitle="Verifying your account." />
 
       {/* RIGHT SIDE: Verification Status */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 lg:px-20 bg-black relative">
@@ -77,10 +77,10 @@ function VerifyEmailContent() {
                 <Loader2 className="text-white animate-spin" size={32} />
               </div>
               <h2 className="text-2xl font-bold tracking-tight text-white uppercase mb-4">
-                Verifying Identity
+                Verifying Account
               </h2>
               <p className="text-zinc-500 text-[11px] uppercase tracking-[0.2em] animate-pulse">
-                Synchronizing with the neural network...
+                Please wait...
               </p>
             </div>
           )}
@@ -96,16 +96,16 @@ function VerifyEmailContent() {
                 </div>
               </div>
               <h2 className="text-2xl font-bold tracking-tight text-white uppercase mb-4">
-                Identity Verified
+                Account Verified
               </h2>
               <p className="text-zinc-500 text-[11px] uppercase tracking-[0.2em] leading-relaxed mb-10">
-                {message} <br /> Your access to the XYOMA collective is now fully active.
+                {message} <br /> Your access to the XYOMA community is now fully active.
               </p>
               <Link 
                 href="/login"
                 className="inline-block bg-white py-4 px-10 text-[10px] font-bold uppercase tracking-[0.4em] text-black hover:bg-zinc-200 transition-all rounded-none shadow-lg shadow-white/5"
               >
-                Enter Terminal (Login)
+                Login
               </Link>
             </motion.div>
           )}
@@ -131,7 +131,7 @@ function VerifyEmailContent() {
                   href="/signup"
                   className="inline-block bg-white py-4 px-10 text-[10px] font-bold uppercase tracking-[0.4em] text-black hover:bg-zinc-200 transition-all rounded-none"
                 >
-                  Create New Identity
+                  Create New Account
                 </Link>
                 <Link 
                   href="/"
@@ -152,7 +152,7 @@ export default function VerifyEmailPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white text-[10px] uppercase tracking-[0.5em] animate-pulse">Initializing Identity Verification...</div>
+        <div className="text-white text-[10px] uppercase tracking-[0.5em] animate-pulse">Verifying Your Email...</div>
       </div>
     }>
       <VerifyEmailContent />

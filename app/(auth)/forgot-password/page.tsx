@@ -79,10 +79,10 @@ export default function ForgotPasswordPage() {
             <>
               <div className="mb-10 text-center lg:text-left">
                 <h2 className="text-3xl font-bold tracking-tight text-white uppercase mb-2">
-                  Reset Key
+                  Reset Password
                 </h2>
                 <p className="text-zinc-500 text-[11px] uppercase tracking-[0.2em]">
-                  Enter your email to receive recovery instructions
+                  Enter your email to receive password reset instructions
                 </p>
               </div>
 
@@ -100,7 +100,7 @@ export default function ForgotPasswordPage() {
                 <div className="space-y-5">
                   <div className="group relative">
                     <label className="block text-[9px] uppercase tracking-[0.3em] text-zinc-500 mb-2 group-focus-within:text-white transition-colors">
-                      Identity (Email)
+                      Email Address
                     </label>
                     <input
                       type="email"
@@ -119,7 +119,7 @@ export default function ForgotPasswordPage() {
                     disabled={loading}
                     className="group relative flex w-full justify-center bg-white py-4 text-[10px] font-bold uppercase tracking-[0.4em] text-black hover:bg-zinc-200 transition-all disabled:opacity-50 rounded-none shadow-lg shadow-white/5"
                   >
-                    {loading ? 'Transmitting...' : 'Send Recovery Link'}
+                    {loading ? 'Sending...' : 'Send Reset Link'}
                   </button>
                 </div>
               </form>
@@ -136,11 +136,11 @@ export default function ForgotPasswordPage() {
                 </div>
               </div>
               <h2 className="text-2xl font-bold tracking-tight text-white uppercase mb-4">
-                Transmission Sent
+                Email Sent
               </h2>
               <p className="text-zinc-500 text-[11px] uppercase tracking-[0.2em] leading-relaxed mb-10">
                 If an account exists with <span className="text-white">{email}</span>, 
-                a recovery link has been dispatched to your terminal.
+                a reset link has been sent to your inbox.
               </p>
               <Link 
                 href="/login"
@@ -152,7 +152,7 @@ export default function ForgotPasswordPage() {
           )}
 
           <p className="mt-12 text-center text-[9px] uppercase tracking-[0.3em] text-zinc-600">
-            Remembered your key?{' '}
+            Remembered your password?{' '}
             <Link href="/login" className="font-bold text-white hover:underline transition-all">
               Sign In
             </Link>
