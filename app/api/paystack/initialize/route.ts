@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import dbConnect from '@/lib/mongodb';
 import PaymentRequest from '@/models/PaymentRequest';
 import { AppError, handleError } from '@/utils/errorHandler';
+import { getBaseUrl } from '@/utils/baseUrl';
 
 export async function POST(req: NextRequest) {
   try {
@@ -52,7 +53,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         email,
         amount,
-        callback_url: `${process.env.NEXTAUTH_URL}/checkout/verify`,
+        callback_url: `${getBaseUrl()}/checkout/verify`,
         metadata: {
           idempotencyKey,
           userId: session.user.id

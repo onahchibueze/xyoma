@@ -3,6 +3,7 @@ import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
 import crypto from "crypto";
 import { sendEmail } from "@/lib/email";
+import { getBaseUrl } from "@/utils/baseUrl";
 
 /**
  * POST /api/auth/forgot-password
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
     await user.save();
 
     // Construct reset URL
-    const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${resetToken}`;
+    const resetUrl = `${getBaseUrl()}/reset-password?token=${resetToken}`;
 
     // Send reset email
     try {
