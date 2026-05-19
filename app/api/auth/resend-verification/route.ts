@@ -3,6 +3,7 @@ import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
 import crypto from "crypto";
 import { sendEmail } from "@/lib/email";
+import { getBaseUrl } from "@/utils/baseUrl";
 
 /**
  * POST /api/auth/resend-verification
@@ -47,7 +48,7 @@ export async function POST(req: NextRequest) {
     await user.save();
 
     // Construct verification URL
-    const verificationUrl = `${process.env.NEXTAUTH_URL}/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${getBaseUrl()}/verify-email?token=${verificationToken}`;
 
     // Send verification email
     try {

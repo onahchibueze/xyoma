@@ -5,6 +5,7 @@ import User, { IUser } from "@/models/User";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { sendEmail } from "@/lib/email";
+import { getBaseUrl } from "@/utils/baseUrl";
 
 export async function registerUser(userData: Partial<IUser>) {
   try {
@@ -40,7 +41,7 @@ export async function registerUser(userData: Partial<IUser>) {
     });
 
     // Construct verification URL
-    const verificationUrl = `${process.env.NEXTAUTH_URL}/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${getBaseUrl()}/verify-email?token=${verificationToken}`;
 
     // Send verification email
     try {
