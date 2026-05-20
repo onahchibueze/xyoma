@@ -13,6 +13,7 @@ import { cn } from '@/utils/cn';
 import { formatPrice } from '@/utils';
 
 const statusIcons = {
+  Pending: <Clock className="text-zinc-500" size={14} />,
   Processing: <Clock className="text-blue-400" size={14} />,
   Shipped: <Truck className="text-yellow-400" size={14} />,
   Delivered: <CheckCircle2 className="text-green-400" size={14} />,
@@ -199,7 +200,8 @@ function OrdersContent() {
                         <p className="text-[8px] uppercase tracking-widest text-zinc-600">Destination</p>
                         <p className="text-[10px] uppercase tracking-widest leading-relaxed text-zinc-300">
                           {order.shippingInfo.address}<br />
-                          {order.shippingInfo.city}, {order.shippingInfo.postalCode}<br />
+                          {order.shippingInfo.city}, {order.shippingInfo.state}<br />
+                          {order.shippingInfo.postalCode}<br />
                           {order.shippingInfo.country}
                         </p>
                       </div>

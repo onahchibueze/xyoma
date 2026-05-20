@@ -12,7 +12,7 @@ interface ProductFormProps {
   isEditing?: boolean;
 }
 
-const CATEGORIES = ['Gown', 'T-shirts', 'Luxury Dresses', 'Streetwear', 'Accessories'];
+const CATEGORIES = ['Gown', 'Tops', 'Bottoms', 'Luxury Dresses', 'Streetwear', 'Accessories'];
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'One Size'];
 const GENDERS = [
   { label: 'Male', value: 'male' },

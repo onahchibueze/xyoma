@@ -76,31 +76,32 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
     <div className="bg-black min-h-screen text-white">
       <Navbar />
 
-      <SectionWrapper id="product-details" className="pt-32 pb-24">
-        <div className="mb-12">
+      <SectionWrapper id="product-details" className="pt-24 md:pt-32 pb-24">
+        <div className="mb-8 md:mb-12">
           <BackButton />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 xl:gap-24">
           {/* Left: Image Gallery */}
-          <div className="space-y-6">
-            <div className="relative aspect-[4/5] overflow-hidden bg-zinc-900 border border-white/10 rounded-2xl group">
+          <div className="space-y-4 md:space-y-6">
+            <div className="relative aspect-[4/5] overflow-hidden bg-zinc-900 border border-white/10 rounded-xl md:rounded-2xl group">
               <Image
                 src={product.images[activeImage]}
                 alt={product.title}
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 priority
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
               
               {product.images.length > 1 && (
-                <div className="absolute inset-x-0 bottom-6 flex justify-center gap-3">
+                <div className="absolute inset-x-0 bottom-4 md:bottom-6 flex justify-center gap-2 md:gap-3">
                   {product.images.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveImage(idx)}
                       className={cn(
                         "h-1 transition-all duration-300",
-                        activeImage === idx ? "w-8 bg-white" : "w-4 bg-white/30"
+                        activeImage === idx ? "w-6 md:w-8 bg-white" : "w-3 md:w-4 bg-white/30"
                       )}
                     />
                   ))}
@@ -110,7 +111,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
 
             {/* Thumbnails */}
             {product.images.length > 1 && (
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-5 md:grid-cols-4 gap-3 md:gap-4">
                 {product.images.map((img, idx) => (
                   <button
                     key={idx}
@@ -120,7 +121,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
                       activeImage === idx ? "border-white" : "border-white/5 opacity-50 hover:opacity-100"
                     )}
                   >
-                    <Image src={img} alt="" fill className="object-cover" />
+                    <Image src={img} alt="" fill className="object-cover" sizes="20vw" />
                   </button>
                 ))}
               </div>
@@ -128,26 +129,26 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
           </div>
 
           {/* Right: Product Info */}
-          <div className="flex flex-col gap-10">
-            <div className="space-y-4">
+          <div className="flex flex-col gap-8 md:gap-10">
+            <div className="space-y-3 md:space-y-4">
               <div className="flex items-center gap-4">
-                <span className="text-[10px] uppercase tracking-[0.4em] text-zinc-500 font-medium">
+                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.4em] text-zinc-500 font-medium">
                   {product.category}
                 </span>
                 <div className="h-px flex-1 bg-white/10" />
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-none">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tighter leading-tight md:leading-none">
                 {product.title}
               </h1>
-              <p className="text-2xl font-mono text-zinc-400">
+              <p className="text-xl md:text-2xl font-mono text-zinc-400">
                 {formatPrice(product.price)}
               </p>
             </div>
 
             <div className="h-px bg-white/10 w-full" />
 
-            <div className="space-y-8">
-              <p className="text-sm text-zinc-400 leading-relaxed max-w-lg">
+            <div className="space-y-6 md:space-y-8">
+              <p className="text-xs md:text-sm text-zinc-400 leading-relaxed max-w-lg">
                 {product.description}
               </p>
 
@@ -155,16 +156,16 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
               {product.sizes.length > 0 && (
                 <div className="space-y-4">
                   <div className="flex justify-between items-end">
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold">Select Size</span>
-                    <span className="text-[9px] uppercase tracking-widest text-zinc-600 underline cursor-pointer">Size Guide</span>
+                    <span className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold">Select Size</span>
+                    <span className="text-[8px] md:text-[9px] uppercase tracking-widest text-zinc-600 underline cursor-pointer">Size Guide</span>
                   </div>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2 md:gap-3">
                     {product.sizes.map((size) => (
                       <button
                         key={size}
                         onClick={() => setSelectedSize(size)}
                         className={cn(
-                          "min-w-[50px] h-10 flex items-center justify-center border text-xs font-bold uppercase tracking-widest transition-all duration-300",
+                          "min-w-[45px] md:min-w-[50px] h-10 flex items-center justify-center border text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all duration-300",
                           selectedSize === size
                             ? "bg-white text-black border-white"
                             : "bg-transparent text-white border-white/10 hover:border-white"
@@ -178,28 +179,28 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
               )}
 
               {/* Quantity and Add to Cart */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-6 pt-4">
-                <div className="flex items-center border border-white/10 rounded-full px-2 h-14 bg-zinc-900/50">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6 pt-2">
+                <div className="flex items-center border border-white/10 rounded-full px-2 py-1 bg-zinc-900/50 w-full md:w-auto justify-between md:justify-start">
                   <button 
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="p-3 text-zinc-500 hover:text-white transition-colors"
                   >
-                    <Minus size={16} />
+                    <Minus className="w-3.5 h-3.5 md:w-4 md:h-4" />
                   </button>
-                  <span className="w-12 text-center font-mono text-lg">{quantity}</span>
+                  <span className="w-12 text-center font-mono text-base md:text-lg">{quantity}</span>
                   <button 
                     onClick={() => setQuantity(quantity + 1)}
                     className="p-3 text-zinc-500 hover:text-white transition-colors"
                   >
-                    <Plus size={16} />
+                    <Plus className="w-3.5 h-3.5 md:w-4 md:h-4" />
                   </button>
                 </div>
 
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 h-14 bg-white text-black flex items-center justify-center gap-3 rounded-full font-bold uppercase tracking-[0.2em] text-sm hover:bg-zinc-200 transition-all duration-300 active:scale-[0.98]"
+                  className="flex-1 py-4 md:py-5 bg-white text-black flex items-center justify-center gap-3 px-8 rounded-full font-bold uppercase tracking-[0.2em] text-[11px] md:text-sm hover:bg-zinc-200 transition-all duration-300 active:scale-[0.98] w-full"
                 >
-                  <ShoppingBag size={18} />
+                  <ShoppingBag className="w-4 h-4 md:w-[18px] md:h-[18px]" />
                  Add to Cart
                 </button>
               </div>
@@ -208,21 +209,21 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
             <div className="h-px bg-white/10 w-full" />
 
             {/* Product Meta */}
-            <div className="grid grid-cols-2 gap-y-6 text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-medium">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:gap-y-8 text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-medium">
               <div>
-                <p className="text-zinc-700 mb-1">Authenticity</p>
+                <p className="text-zinc-700 mb-1.5 font-bold">Authenticity</p>
                 <p className="text-zinc-300">Official XYOMA Product</p>
               </div>
               <div>
-                <p className="text-zinc-700 mb-1">Shipping</p>
+                <p className="text-zinc-700 mb-1.5 font-bold">Shipping</p>
                 <p className="text-zinc-300">Global Logistics</p>
               </div>
               <div>
-                <p className="text-zinc-700 mb-1">Material</p>
+                <p className="text-zinc-700 mb-1.5 font-bold">Material</p>
                 <p className="text-zinc-300">Premium Material</p>
               </div>
               <div>
-                <p className="text-zinc-700 mb-1">Serial</p>
+                <p className="text-zinc-700 mb-1.5 font-bold">Serial</p>
                 <p className="text-zinc-300 font-mono">#{product._id.slice(-6).toUpperCase()}</p>
               </div>
             </div>

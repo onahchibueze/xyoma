@@ -15,7 +15,7 @@ export default function Home() {
       <About />
    
       <Features />
-      <Collection />
+      <Collection limit={4} showSeeMore={true} />
          <Art />
       <Contact />
       <Footer />

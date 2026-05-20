@@ -16,6 +16,7 @@ export interface IOrder {
   shippingInfo: {
     address: string;
     city: string;
+    state: string;
     postalCode: string;
     country: string;
     phoneNo: string;
@@ -23,8 +24,9 @@ export interface IOrder {
   paymentInfo: {
     id: string;
     status: string;
+    method: string;
   };
-  orderStatus: 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
+  orderStatus: 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
   itemsPrice: number;
   shippingPrice: number;
   taxPrice: number;
@@ -55,19 +57,21 @@ const OrderSchema = new Schema<IOrder>(
     shippingInfo: {
       address: { type: String, required: true },
       city: { type: String, required: true },
+      state: { type: String, required: true },
       postalCode: { type: String, required: true },
       country: { type: String, required: true },
       phoneNo: { type: String, required: true },
     },
     paymentInfo: {
       id: { type: String, unique: true, sparse: true },
-      status: { type: String }
+      status: { type: String },
+      method: { type: String, required: true, default: 'Paystack' }
     },
     orderStatus: { 
       type: String, 
       required: true, 
-      enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],
-      default: 'Processing' 
+      enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
+      default: 'Pending' 
     },
     itemsPrice: { type: Number, required: true, default: 0.0 },
     shippingPrice: { type: Number, required: true, default: 0.0 },
