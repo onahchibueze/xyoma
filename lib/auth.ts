@@ -84,18 +84,42 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         await dbConnect();
         try {
-          await User.findOneAndUpdate(
-            { email: user.email },
-            { 
-              $set: { 
-                isVerified: true,
-                name: user.name,
-                image: user.image 
-              },
-              $setOnInsert: { role: 'user' } 
-            },
-            { upsert: true, new: true }
-          );
+          // Check if user already exists
+          const existingUser = await User.findOne({ email: user.email });
+          
+          if (!existingUser) {
+            // This is a new user signing up via Google
+            // The adapter will also create the user, but we ensure it's synced with our model
+            // and send a welcome email
+            await User.create({
+              name: user.name,
+              email: user.email,
+              image: user.image,
+              isVerified: true,
+              role: 'user',
+            });
+            
+            // Send welcome email for new Google signup
+            try {
+              if (user.email && user.name) {
+                await sendWelcomeEmail(user.email, user.name);
+              }
+            } catch (emailError) {
+              console.error("Google welcome email failed:", emailError);
+            }
+          } else {
+            // User exists, just update their profile info from Google
+            await User.findOneAndUpdate(
+              { email: user.email },
+              { 
+                $set: { 
+                  isVerified: true,
+                  name: user.name,
+                  image: user.image 
+                }
+              }
+            );
+          }
         } catch (error) {
           console.error("Error syncing Google user to database:", error);
         }

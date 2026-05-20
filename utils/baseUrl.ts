@@ -19,5 +19,6 @@ export function getBaseUrl(): string {
   }
 
   // No fallback to localhost to prevent incorrect links in production
-  return "";
+  // However, for development or if everything else fails, we need something
+  return process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://xyoma.com';
 }
