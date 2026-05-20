@@ -6,6 +6,7 @@ import clientPromise from "@/lib/mongodb-client";
 import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
 import bcrypt from "bcrypt";
+import { sendWelcomeEmail } from "@/lib/email";
 
 declare module "next-auth" {
   interface Session {
