@@ -3,6 +3,7 @@ import dbConnect from '@/lib/mongodb';
 import PaymentRequest from '@/models/PaymentRequest';
 import Order from '@/models/Order';
 import Cart from '@/models/Cart';
+import { sendOrderInvoice } from '@/lib/invoice';
 import { AppError, handleError } from '@/utils/errorHandler';
 
 export async function GET(req: NextRequest) {
@@ -39,10 +40,11 @@ export async function GET(req: NextRequest) {
         await paymentRequest.save();
 
         // Fallback Order Creation if webhook hasn't done it yet
-        const orderExists = await Order.findOne({ 'paymentInfo.id': verifiedRef });
-        if (!orderExists) {
+        let order = await Order.findOne({ 'paymentInfo.id': verifiedRef });
+        
+        if (!order) {
           const { orderData, userId } = paymentRequest;
-          await Order.create({
+          order = await Order.create({
             ...orderData,
             userId,
             paymentInfo: {
@@ -55,6 +57,9 @@ export async function GET(req: NextRequest) {
           
           // Clear the user's cart in DB
           await Cart.findOneAndDelete({ userId: paymentRequest.userId });
+
+          // Trigger Invoice Email
+          await sendOrderInvoice(order);
         }
       }
       

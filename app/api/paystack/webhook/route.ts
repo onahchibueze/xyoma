@@ -62,8 +62,8 @@ export async function POST(req: NextRequest) {
       // Clear the user's cart in DB
       await Cart.findOneAndDelete({ userId });
 
-      // Trigger Invoice Email (Background task, non-blocking)
-      sendOrderInvoice(order);
+      // Trigger Invoice Email
+      await sendOrderInvoice(order);
 
       return NextResponse.json({ success: true, message: 'Order created successfully' });
     }
