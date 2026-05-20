@@ -40,13 +40,46 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        token: { label: "Token", type: "text" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials");
+        if (!credentials?.email) {
+          throw new Error("Email is required");
         }
 
         await dbConnect();
+
+        // Check if this is a token-based verification login
+        if (credentials.token) {
+          const user = await User.findOne({ 
+            email: credentials.email,
+            verificationToken: credentials.token,
+            verificationTokenExpiry: { $gt: new Date() }
+          });
+
+          if (!user) {
+            throw new Error("Invalid or expired verification link");
+          }
+
+          // Mark as verified and clear token
+          user.isVerified = true;
+          user.verificationToken = undefined;
+          user.verificationTokenExpiry = undefined;
+          await user.save();
+
+          return {
+            id: user._id.toString(),
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            image: user.image,
+          };
+        }
+
+        if (!credentials.password) {
+          throw new Error("Password is required");
+        }
+
         const user = await User.findOne({ email: credentials.email }).select("+password");
 
         if (!user || !user.password) {

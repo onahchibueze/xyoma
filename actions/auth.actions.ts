@@ -49,7 +49,7 @@ export async function registerUser(userData: Partial<IUser>) {
     }
 
     // Construct verification URL
-    const verificationUrl = `${getBaseUrl()}/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${getBaseUrl()}/verify-email?token=${verificationToken}&email=${email}`;
 
     // Send verification email
     try {
