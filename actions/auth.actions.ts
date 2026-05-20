@@ -4,7 +4,7 @@ import dbConnect from "@/lib/mongodb";
 import User, { IUser } from "@/models/User";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, sendWelcomeEmail } from "@/lib/email";
 import { getBaseUrl } from "@/utils/baseUrl";
 
 export async function registerUser(userData: Partial<IUser>) {
@@ -40,8 +40,16 @@ export async function registerUser(userData: Partial<IUser>) {
       verificationTokenExpiry,
     });
 
+    // Send Welcome Email
+    try {
+      await sendWelcomeEmail(email, name);
+    } catch (welcomeEmailError) {
+      console.error("Welcome email sending failed:", welcomeEmailError);
+      // We don't block signup if welcome email fails
+    }
+
     // Construct verification URL
-    const verificationUrl = `${getBaseUrl()}/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${getBaseUrl()}/verify-email?token=${verificationToken}&email=${email}`;
 
     // Send verification email
     try {

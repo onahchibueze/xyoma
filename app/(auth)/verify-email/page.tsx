@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
 import AuthSidebar from '@/components/AuthSidebar';
 import { motion } from 'framer-motion';
 import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
@@ -13,32 +14,38 @@ function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get('token');
+  const email = searchParams.get('email');
 
   useEffect(() => {
-    const verifyEmail = async () => {
-      if (!token) {
+    const verifyAndLogin = async () => {
+      if (!token || !email) {
         setStatus('error');
-        setMessage('Verification token is missing. Please check your link.');
+        setMessage('Verification details are missing. Please check your link.');
         return;
       }
 
       try {
-        const res = await fetch('/api/auth/verify-email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ token }),
+        // Use NextAuth signIn with the token credential
+        const res = await signIn('credentials', {
+          redirect: false,
+          email,
+          token,
         });
 
-        const data = await res.json();
-
-        if (!res.ok) {
+        if (res?.error) {
           setStatus('error');
-          setMessage(data.error || 'Verification failed. The token may be invalid or expired.');
+          setMessage(res.error === 'Invalid or expired verification link' 
+            ? 'The verification link is invalid or has expired.' 
+            : 'An error occurred during account verification.');
         } else {
           setStatus('success');
-          setMessage(data.message || 'Account verified successfully.');
+          setMessage('Account verified successfully. Logging you in...');
+          
+          // Small delay for the user to see success state, then redirect
+          setTimeout(() => {
+            router.push('/');
+            router.refresh();
+          }, 2000);
         }
       } catch (err) {
         console.error(err);
@@ -47,8 +54,8 @@ function VerifyEmailContent() {
       }
     };
 
-    verifyEmail();
-  }, [token]);
+    verifyAndLogin();
+  }, [token, email, router]);
 
   return (
     <div className="flex min-h-screen bg-black overflow-hidden relative">

@@ -14,11 +14,14 @@ export default function SectionWrapper({
   className = "",
   containerClassName = "",
   fullWidth = false,
-}: SectionWrapperProps) {
+  overflowVisible = false,
+}: SectionWrapperProps & { overflowVisible?: boolean }) {
   return (
     <section
       id={id}
-      className={`relative w-full py-16 md:py-24 lg:py-32 overflow-hidden ${className}`}
+      className={`relative w-full py-16 md:py-24 lg:py-32 ${
+        overflowVisible ? "" : "overflow-hidden"
+      } ${className}`}
     >
       <div
         className={`mx-auto px-6 md:px-12 lg:px-20 ${

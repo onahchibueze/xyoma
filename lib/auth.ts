@@ -6,6 +6,7 @@ import clientPromise from "@/lib/mongodb-client";
 import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
 import bcrypt from "bcrypt";
+import { sendWelcomeEmail } from "@/lib/email";
 
 declare module "next-auth" {
   interface Session {
@@ -40,13 +41,46 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        token: { label: "Token", type: "text" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials");
+        if (!credentials?.email) {
+          throw new Error("Email is required");
         }
 
         await dbConnect();
+
+        // Check if this is a token-based verification login
+        if (credentials.token) {
+          const user = await User.findOne({ 
+            email: credentials.email,
+            verificationToken: credentials.token,
+            verificationTokenExpiry: { $gt: new Date() }
+          });
+
+          if (!user) {
+            throw new Error("Invalid or expired verification link");
+          }
+
+          // Mark as verified and clear token
+          user.isVerified = true;
+          user.verificationToken = undefined;
+          user.verificationTokenExpiry = undefined;
+          await user.save();
+
+          return {
+            id: user._id.toString(),
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            image: user.image,
+          };
+        }
+
+        if (!credentials.password) {
+          throw new Error("Password is required");
+        }
+
         const user = await User.findOne({ email: credentials.email }).select("+password");
 
         if (!user || !user.password) {
@@ -84,18 +118,42 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         await dbConnect();
         try {
-          await User.findOneAndUpdate(
-            { email: user.email },
-            { 
-              $set: { 
-                isVerified: true,
-                name: user.name,
-                image: user.image 
-              },
-              $setOnInsert: { role: 'user' } 
-            },
-            { upsert: true, new: true }
-          );
+          // Check if user already exists
+          const existingUser = await User.findOne({ email: user.email });
+          
+          if (!existingUser) {
+            // This is a new user signing up via Google
+            // The adapter will also create the user, but we ensure it's synced with our model
+            // and send a welcome email
+            await User.create({
+              name: user.name,
+              email: user.email,
+              image: user.image,
+              isVerified: true,
+              role: 'user',
+            });
+            
+            // Send welcome email for new Google signup
+            try {
+              if (user.email && user.name) {
+                await sendWelcomeEmail(user.email, user.name);
+              }
+            } catch (emailError) {
+              console.error("Google welcome email failed:", emailError);
+            }
+          } else {
+            // User exists, just update their profile info from Google
+            await User.findOneAndUpdate(
+              { email: user.email },
+              { 
+                $set: { 
+                  isVerified: true,
+                  name: user.name,
+                  image: user.image 
+                }
+              }
+            );
+          }
         } catch (error) {
           console.error("Error syncing Google user to database:", error);
         }

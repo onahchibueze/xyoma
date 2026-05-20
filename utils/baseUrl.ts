@@ -18,6 +18,7 @@ export function getBaseUrl(): string {
     return `https://${process.env.VERCEL_URL}`;
   }
 
-  // Final fallback to localhost for development
-  return "http://localhost:3000";
+  // No fallback to localhost to prevent incorrect links in production
+  // However, for development or if everything else fails, we need something
+  return process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://xyoma.com';
 }

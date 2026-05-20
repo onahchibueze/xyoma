@@ -34,9 +34,10 @@ export async function POST(req: NextRequest) {
       totalPrice,
       paymentInfo: {
         id: 'COD_' + Math.random().toString(36).substr(2, 9),
-        status: 'Pending'
+        status: 'Pending',
+        method: 'COD'
       },
-      orderStatus: 'Processing'
+      orderStatus: 'Pending'
     });
 
     return NextResponse.json({ success: true, order });

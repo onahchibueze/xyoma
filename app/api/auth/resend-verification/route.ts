@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
     await user.save();
 
     // Construct verification URL
-    const verificationUrl = `${getBaseUrl()}/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${getBaseUrl()}/verify-email?token=${verificationToken}&email=${email}`;
 
     // Send verification email
     try {

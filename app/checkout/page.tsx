@@ -21,6 +21,7 @@ export default function CheckoutPage() {
   const [shippingInfo, setShippingInfo] = useState({
     address: '',
     city: '',
+    state: '',
     postalCode: '',
     country: '',
     phoneNo: '',
@@ -128,7 +129,7 @@ export default function CheckoutPage() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div className="space-y-2">
                         <label className="text-[9px] uppercase tracking-widest text-zinc-500 ml-1">City</label>
                         <input
@@ -137,6 +138,17 @@ export default function CheckoutPage() {
                           value={shippingInfo.city}
                           onChange={handleChange}
                           placeholder="LAGOS, ABUJA, ETC."
+                          className="w-full bg-zinc-900/50 border border-white/5 rounded-xl py-4 px-5 text-xs uppercase tracking-widest focus:outline-none focus:border-white/20 transition-all"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[9px] uppercase tracking-widest text-zinc-500 ml-1">State / Region</label>
+                        <input
+                          required
+                          name="state"
+                          value={shippingInfo.state}
+                          onChange={handleChange}
+                          placeholder="LAGOS STATE, FCT, ETC."
                           className="w-full bg-zinc-900/50 border border-white/5 rounded-xl py-4 px-5 text-xs uppercase tracking-widest focus:outline-none focus:border-white/20 transition-all"
                         />
                       </div>

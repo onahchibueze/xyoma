@@ -53,9 +53,10 @@ export async function POST(req: NextRequest) {
         userId,
         paymentInfo: {
           id: reference,
-          status: 'Paid'
+          status: 'Paid',
+          method: 'Paystack'
         },
-        orderStatus: 'Processing'
+        orderStatus: 'Pending'
       });
 
       // Clear the user's cart in DB

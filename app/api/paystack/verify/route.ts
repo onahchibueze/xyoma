@@ -47,9 +47,10 @@ export async function GET(req: NextRequest) {
             userId,
             paymentInfo: {
               id: verifiedRef,
-              status: 'Paid'
+              status: 'Paid',
+              method: 'Paystack'
             },
-            orderStatus: 'Processing'
+            orderStatus: 'Pending'
           });
           
           // Clear the user's cart in DB

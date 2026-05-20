@@ -35,22 +35,22 @@ const navLinks: NavLink[] = [
   { name: "New Arrivals", href: "/collection?sort=newest" },
   { 
     name: "Men", 
-    href: "/collection?category=Men",
+    href: "/collection?gender=male",
     dropdown: [
-      { name: "All Men", href: "/collection?category=Men" },
-      { name: "Tops", href: "/collection?category=Tops" },
-      { name: "Bottoms", href: "/collection?category=Bottoms" },
-      { name: "Outerwear", href: "/collection?category=Outerwear" },
+      { name: "All Men", href: "/collection?gender=male" },
+      { name: "Tops", href: "/collection?gender=male&category=Tops" },
+      { name: "Bottoms", href: "/collection?gender=male&category=Bottoms" },
+      { name: "Outerwear", href: "/collection?gender=male&category=Outerwear" },
     ]
   },
   { 
     name: "Women", 
-    href: "/collection?category=Women",
+    href: "/collection?gender=female",
     dropdown: [
-      { name: "All Women", href: "/collection?category=Women" },
-      { name: "Dresses", href: "/collection?category=Dresses" },
-      { name: "Gown", href: "/collection?category=Gown" },
-      { name: "Tops", href: "/collection?category=Tops" },
+      { name: "All Women", href: "/collection?gender=female" },
+      { name: "Dresses", href: "/collection?gender=female&category=Dresses" },
+      { name: "Gown", href: "/collection?gender=female&category=Gown" },
+      { name: "Tops", href: "/collection?gender=female&category=Tops" },
     ]
   },
   { name: "Collections", href: "/collection" },
